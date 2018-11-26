@@ -11,6 +11,20 @@ class App extends Component {
     wallets: null,
     categories: null,
     tags: null,
+    header: [
+      '№',
+      'Amount',
+      'Amount converted',
+      'Currency',
+      'Currency of conversion',
+      'Data',
+      'Note',
+      'Recurrence',
+      'Tags',
+      'From',
+      'To',
+      'Type'
+    ]
   }
 
   handleChangeFileInput = event => {
@@ -42,7 +56,8 @@ class App extends Component {
   }
 
   render() {
-    let { text } = this.state
+    let { accounts } = this.state
+    const { header } = this.state
     return (
       <div className="App">
         <header className="App-header">
@@ -59,11 +74,31 @@ class App extends Component {
             Learn React
           </a>
             <input type="file" onChange={this.handleChangeFileInput}/>
-            {text && <span>please, select the file with extansion .csv</span>}
         </header>
-        <table>
-
-        </table>
+        {accounts && (
+          <table>
+            <tr>
+              {header.map(el => <th key={1}>{el}</th>)}
+            </tr>
+            {accounts.data.map((el, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>{el[header[1]]}</td>
+                <td>{el[header[2]]}</td>
+                <td>{el[header[3]]}</td>
+                <td>{el[header[4]]}</td>
+                <td>{el[header[5]]}</td>
+                <td>{el[header[6]]}</td>
+                <td>{el[header[7]]}</td>
+                <td>{el[header[8]]}</td>
+                <td>{el[header[9]]}</td>
+                <td>{el[header[10]]}</td>
+                <td>{el[header[11]]}</td>
+                <td>{el[header[12]]}</td>
+              </tr>
+            ))}
+          </table>
+        )}
       </div>
     );
   }
