@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Papa from 'papaparse';
 
+import Table from './components/Table'
 import logo from './logo.svg';
 import './App.css';
 
@@ -11,20 +12,7 @@ class App extends Component {
     wallets: null,
     categories: null,
     tags: null,
-    header: [
-      '№',
-      'Amount',
-      'Amount converted',
-      'Currency',
-      'Currency of conversion',
-      'Data',
-      'Note',
-      'Recurrence',
-      'Tags',
-      'From',
-      'To',
-      'Type'
-    ]
+    filteredAccounts: null,
   }
 
   handleChangeFileInput = event => {
@@ -55,9 +43,20 @@ class App extends Component {
     reader.readAsText(file);
   }
 
+  handleFilterCurrency = e => {
+    const filteredAccounts = this.state.accounts.data.filter(el => {
+      console.log(el);
+      console.log(el.Currency);
+      console.log(e.target.value);
+      console.log(el.Currency === e.target.value);
+      return el.Currency === e.target.value;
+    })
+    console.log(filteredAccounts)
+    this.setState({ filteredAccounts: { ...this.state.accounts, data: filteredAccounts }})
+  }
+
   render() {
-    let { accounts } = this.state
-    const { header } = this.state
+    let { filteredAccounts } = this.state
     return (
       <div className="App">
         <header className="App-header">
@@ -75,30 +74,9 @@ class App extends Component {
           </a>
             <input type="file" onChange={this.handleChangeFileInput}/>
         </header>
-        {accounts && (
-          <table>
-            <tr>
-              {header.map(el => <th key={1}>{el}</th>)}
-            </tr>
-            {accounts.data.map((el, i) => (
-              <tr key={i}>
-                <td>{i + 1}</td>
-                <td>{el[header[1]]}</td>
-                <td>{el[header[2]]}</td>
-                <td>{el[header[3]]}</td>
-                <td>{el[header[4]]}</td>
-                <td>{el[header[5]]}</td>
-                <td>{el[header[6]]}</td>
-                <td>{el[header[7]]}</td>
-                <td>{el[header[8]]}</td>
-                <td>{el[header[9]]}</td>
-                <td>{el[header[10]]}</td>
-                <td>{el[header[11]]}</td>
-                <td>{el[header[12]]}</td>
-              </tr>
-            ))}
-          </table>
-        )}
+        <div className="main">
+          { filteredAccounts && <Table accounts={filteredAccounts} filterByCurrency={this.handleFilterCurrency} /> }
+        </div>
       </div>
     );
   }
