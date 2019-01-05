@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import Papa from 'papaparse';
 
+import Table from './components/Table'
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   state = {
-    text: null,
+    accounts: null,
+    sources: null,
+    wallets: null,
+    categories: null,
+    tags: null,
+    filteredAccounts: null,
   }
 
   handleChangeFileInput = event => {
@@ -15,36 +21,45 @@ class App extends Component {
     const reader = new FileReader();
     console.log('file', file.value);
     reader.onload = ev => {
-        console.log(ev.target.result);
-        this.setState({ text: ev.target.result })
-        console.log('parsed', Papa.parse(ev.target.result, { delimiter: '\n\n' }));
+      const endFirstString = ev.target.result.indexOf('\n');
+      const newString = ev.target.result.substring(endFirstString + 1);
+      const newParagraph = newString.split('\n\n\n');
+      const arr = newParagraph.map(function(el) {
+        return Papa.parse(el, { header: true })
+      });
+      this.setState({
+        accounts: arr[0],
+        sources: arr[1],
+        wallets: arr[2],
+        categories: arr[3],
+        tags: arr[4],
+      });
     };
     reader.readAsText(file);
   }
 
+  handleFilterCurrency = e => {
+    const filteredAccounts = this.state.accounts.data.filter(el => {
+      if(e.target.value === 'all') {
+        return true
+      }
+      return el.Currency === e.target.value;
+    })
+    this.setState({ filteredAccounts: { ...this.state.accounts, data: filteredAccounts }})
+  }
+
   render() {
-    let { text } = this.state
+    let { filteredAccounts, accounts } = this.state
+    filteredAccounts = filteredAccounts || accounts
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-            <input type="file" onChange={this.handleChangeFileInput}/>
-            {text && <span>please, select the file with extansion .csv</span>}
+          <input type="file" onChange={this.handleChangeFileInput} />
         </header>
-        <table>
-
-        </table>
+        <div className="main">
+          { filteredAccounts && <Table accounts={filteredAccounts} filterByCurrency={this.handleFilterCurrency} /> }
+        </div>
       </div>
     );
   }
