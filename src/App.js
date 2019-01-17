@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Papa from 'papaparse';
 
+import { addAccounts } from './store/actions'
 import Table from './components/Table'
 import logo from './logo.svg';
 import './App.css';
+
+const mapDispatchToProps = {
+  addAccounts
+}
 
 class App extends Component {
   state = {
@@ -60,9 +66,10 @@ class App extends Component {
         <div className="main">
           { filteredAccounts && <Table accounts={filteredAccounts} filterByCurrency={this.handleFilterCurrency} /> }
         </div>
+        <button onClick={() => this.props.addAccounts(['test array'])}>addAccounts</button>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
