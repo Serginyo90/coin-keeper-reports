@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import ReactTable from 'react-table'
 import PropTypes from 'prop-types'
 import 'react-table/react-table.css'
@@ -46,24 +46,15 @@ const columns = [{
   accessor: 'Type'
 }]
 
-const Body = ({ accounts: { data }, filterByCurrency }) => (
-  <Fragment>
-    <label htmlFor="currency">Select currency</label>
-    <select name="currency" id="currency" onChange={filterByCurrency}>
-      <option value="all">All</option>
-      <option value="USD">USD</option>
-      <option value="RUB">RUB</option>
-    </select>
-    <ReactTable
-      data={data}
-      columns={columns}
-    />
-  </Fragment>
+const Body = ({ accounts }) => (
+  <ReactTable
+    data={accounts}
+    columns={columns}
+  />
 )
 
 Body.propTypes = {
   data: PropTypes.object,
-  filterByCurrency: PropTypes.func.isRequired,
 }
 
 export default Body

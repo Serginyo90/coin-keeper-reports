@@ -2,24 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Papa from 'papaparse';
 
-import { addAccounts } from './store/actions'
+import { setData } from './store/information/actions'
+import { getFilteredAccountsData } from './store/information/selectors'
 import Table from './components/Table'
 import logo from './logo.svg';
 import './App.css';
 
+const mapStateToProps = state => ({
+  accounts: getFilteredAccountsData(state),
+})
+
 const mapDispatchToProps = {
-  addAccounts
+  setData
 }
 
 class App extends Component {
-  state = {
-    accounts: null,
-    sources: null,
-    wallets: null,
-    categories: null,
-    tags: null,
-    filteredAccounts: null,
-  }
 
   handleChangeFileInput = event => {
     const file = event.target.files[0];
@@ -33,30 +30,19 @@ class App extends Component {
       const arr = newParagraph.map(function(el) {
         return Papa.parse(el, { header: true })
       });
-      this.setState({
+      this.props.setData({
         accounts: arr[0],
         sources: arr[1],
         wallets: arr[2],
         categories: arr[3],
         tags: arr[4],
-      });
+      })
     };
     reader.readAsText(file);
   }
 
-  handleFilterCurrency = e => {
-    const filteredAccounts = this.state.accounts.data.filter(el => {
-      if(e.target.value === 'all') {
-        return true
-      }
-      return el.Currency === e.target.value;
-    })
-    this.setState({ filteredAccounts: { ...this.state.accounts, data: filteredAccounts }})
-  }
-
   render() {
-    let { filteredAccounts, accounts } = this.state
-    filteredAccounts = filteredAccounts || accounts
+    const { accounts } = this.props
     return (
       <div className="App">
         <header className="App-header">
@@ -64,12 +50,11 @@ class App extends Component {
           <input type="file" onChange={this.handleChangeFileInput} />
         </header>
         <div className="main">
-          { filteredAccounts && <Table accounts={filteredAccounts} filterByCurrency={this.handleFilterCurrency} /> }
+          { accounts && <Table accounts={accounts}/> }
         </div>
-        <button onClick={() => this.props.addAccounts(['test array'])}>addAccounts</button>
       </div>
     );
   }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

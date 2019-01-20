@@ -7,12 +7,12 @@ import Footer from './Footer';
 import FilterPanel from './FilterPanel';
 import styles from './Table.module.css';
 
-const Table = ({ accounts, filterByCurrency }) => (
+const Table = ({ accounts }) => (
   <div className={styles.wrapper}>
     <FilterPanel />
     <div className={styles.table}>
       {/* <Header /> */}
-      <Body accounts={accounts} filterByCurrency={filterByCurrency} />
+      <Body accounts={accounts} />
       <Footer />
     </div>
   </div>
@@ -20,7 +20,6 @@ const Table = ({ accounts, filterByCurrency }) => (
 
 Table.propTypes = {
   data: PropTypes.object,
-  filterByCurrency: PropTypes.func.isRequired,
 }
 
 export default Table

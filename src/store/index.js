@@ -1,17 +1,12 @@
-import { createStore } from 'redux'
-import { fromJS } from 'immutable';
+import { createStore, combineReducers } from 'redux';
 
-import reducers from './reducers'
+import information from './information/reducers'
+import filter from './filter/reducers';
 
-const initState = fromJS({
-  accounts: [],
-  sources: [],
-  wallets: [],
-  categories: [],
-  tags: [],
-  filteredAccounts: [],
-})
-
-const store = createStore(reducers, initState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const store = createStore(
+  combineReducers({ information, filter }), 
+  {}, 
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 export default store
