@@ -3,12 +3,13 @@ import { createSelector } from 'reselect';
 import { getFilterByCurrency } from 'store/filter/selectors';
 import { DEFAULT_FILTER_BY_CURRENCY } from 'helpers/constants/filter';
 
-const getInformation = state => state.information;
+const getInformation = state => state.get('information');
 export const getAccountsData = createSelector(getInformation, inf => inf.getIn(['accounts', 'data']));
 export const getSources = createSelector(getInformation, inf => inf.get('sources'));
 export const getWallets = createSelector(getInformation, inf => inf.get('wallets'));
 export const getCategories = createSelector(getInformation, inf => inf.get('categories'));
-export const getTags = createSelector(getInformation, inf => inf.get('tags'));
+const getTags = createSelector(getInformation, inf => inf.get('tags'));
+export const getTagsData = createSelector(getTags, tags => tags.get('data'));
 
 export const getAccountsDataFilteredByCurrency = createSelector(
   [getAccountsData, getFilterByCurrency], (accounts, byCurrency) => {

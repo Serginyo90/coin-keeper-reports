@@ -12,6 +12,7 @@
     "react-scripts": "2.1.1",
     "react-table": "^6.8.6",
     "redux": "^4.0.1",
+    "redux-immutable": "^4.0.0",
     "reselect": "^4.0.0"
   },
   "scripts": {
