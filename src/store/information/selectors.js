@@ -3,14 +3,16 @@ import { List } from 'immutable';
 import uniq from 'lodash/uniq';
 
 import { getFilterByCurrency } from 'store/filter/selectors';
-import { getFilterPanelFormValuesForTags, getFilterPanelFormValueForType } from 'store/form/selectors';
-import { DEFAULT_FILTER_BY_CURRENCY, DEFAULT_FILTER_BY_TYPE } from 'helpers/constants/filter';
+import { getFilterPanelFormValuesForTags, getFilterPanelFormValueForType, getFilterPanelFormValueForCategory } from 'store/form/selectors';
+import { DEFAULT_FILTER_BY_CURRENCY, DEFAULT_FILTER_BY_TYPE, DEFAULT_FILTER_BY_CATEGORY } from 'helpers/constants/filter';
 
 const getInformation = state => state.get('information');
 export const getAccountsData = createSelector(getInformation, inf => inf.getIn(['accounts', 'data']));
 export const getSources = createSelector(getInformation, inf => inf.get('sources'));
 export const getWallets = createSelector(getInformation, inf => inf.get('wallets'));
-export const getCategories = createSelector(getInformation, inf => inf.get('categories'));
+const getCategories = createSelector(getInformation, inf => inf.get('categories'));
+const getCategoriesData = createSelector(getCategories, categories => categories.get('data'));
+export const getCategoriesDataForSelect = createSelector(getCategoriesData, categories => List(categories.map(el => el.Name)));
 const getTags = createSelector(getInformation, inf => inf.get('tags'));
 export const getTagsData = createSelector(getTags, tags => {
     return tags.get('data').sort((a, b) => {
@@ -37,8 +39,15 @@ export const getAccountsDataFilteredByType = createSelector(
   }
 );
 
+export const getAccountsDataFilteredByCategory = createSelector(
+  [getAccountsDataFilteredByType, getFilterPanelFormValueForCategory], (accounts, byCategory) => {
+    return byCategory === DEFAULT_FILTER_BY_CATEGORY ? 
+      accounts : accounts.filter(el => el.To === byCategory)
+  }
+);
+
 export const getAccountsDataFilteredByTags = createSelector(
-  [getAccountsDataFilteredByType, getFilterPanelFormValuesForTags], (accounts, tags) => {
+  [getAccountsDataFilteredByCategory, getFilterPanelFormValuesForTags], (accounts, tags) => {
     return !tags.size ? accounts : (
       accounts && accounts.filter(account => {
         if (!!account.Tags) {
