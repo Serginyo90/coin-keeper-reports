@@ -1,29 +1,21 @@
 import React from 'react';
+import { FormSection } from 'redux-form/immutable';
 
 import Select from 'components/Select';
 import { DEFAULT_FILTER_BY_CURRENCY } from 'helpers/constants/filter';
 import FilterBlock from './FilterBlock';
 import styles from './FilterPanel.module.css';
 
-// const handleFilterCurrency = e => {
-//   const filteredAccounts = this.props.accounts.data.filter(el => {
-//     if(e.target.value === 'all') {
-//       return true
-//     }
-//     return el.Currency === e.target.value;
-//   })
-//   this.setState({ filteredAccounts: { ...this.props.accounts, data: filteredAccounts }})
-// }
-
-const FilterPanel = ({ setFilterByCurrency, byCurrency }) => (
+const FilterPanel = ({ 
+  setFilterByCurrency,
+  byCurrency, 
+  tags,
+  currencies
+}) => (
   <div className={styles.wrapper}>
     <Select
-      label="Select currency"
-      options={[
-        { label: 'All currencies', value: DEFAULT_FILTER_BY_CURRENCY },
-        { label: 'USD', value: 'USD'},
-        { label: 'RUB', value: 'RUB'},
-      ]}
+      label="By currency"
+      options={[{ label: 'All currencies', value: DEFAULT_FILTER_BY_CURRENCY }].concat(currencies.toJS())}
       input={{
         name: "currency",
         value: byCurrency,
@@ -32,10 +24,14 @@ const FilterPanel = ({ setFilterByCurrency, byCurrency }) => (
         }
       }}
     />
-    <FilterBlock 
-      title="TITLE_1"
-      filterItems={['item1', 'item2', 'item3']}
-    />
+    <form>
+      <FormSection name="tags">
+        <FilterBlock 
+          title="By tags"
+          filterItems={tags}
+        />
+      </FormSection>
+    </form>
   </div>
 )
 

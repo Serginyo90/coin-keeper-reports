@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // import Header from './Header';
 import Body from './Body';
-import Footer from './Footer';
+// import Footer from './Footer';
 import FilterPanel from './FilterPanel';
 import styles from './Table.module.css';
 
@@ -13,7 +13,7 @@ const Table = ({ accounts }) => (
     <div className={styles.table}>
       {/* <Header /> */}
       <Body accounts={accounts} />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   </div>
 )

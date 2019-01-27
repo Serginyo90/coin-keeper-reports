@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux-immutable';
 import { createStore } from 'redux';
 import { Map } from 'immutable';
+import { reducer as formReducer } from 'redux-form/immutable';
 
 import information from './information/reducers'
 import filter from './filter/reducers';
 
 const store = createStore(
-  combineReducers({ information, filter }), 
+  combineReducers({ information, filter, form: formReducer }), 
   Map(), 
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )

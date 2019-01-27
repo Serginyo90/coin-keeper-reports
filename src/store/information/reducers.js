@@ -7,7 +7,7 @@ export const initState = fromJS({
   wallets: [],
   categories: [],
   tags: [],
-  filteredAccounts: [],
+  currencies: [],
 })
 
 export default function(state = initState, action) {
