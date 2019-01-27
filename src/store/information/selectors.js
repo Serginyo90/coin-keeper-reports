@@ -3,8 +3,8 @@ import { List } from 'immutable';
 import uniq from 'lodash/uniq';
 
 import { getFilterByCurrency } from 'store/filter/selectors';
-import { getFilterPanelFormValuesForTags } from 'store/form/selectors';
-import { DEFAULT_FILTER_BY_CURRENCY } from 'helpers/constants/filter';
+import { getFilterPanelFormValuesForTags, getFilterPanelFormValueForType } from 'store/form/selectors';
+import { DEFAULT_FILTER_BY_CURRENCY, DEFAULT_FILTER_BY_TYPE } from 'helpers/constants/filter';
 
 const getInformation = state => state.get('information');
 export const getAccountsData = createSelector(getInformation, inf => inf.getIn(['accounts', 'data']));
@@ -30,9 +30,15 @@ export const getAccountsDataFilteredByCurrency = createSelector(
   }
 );
 
+export const getAccountsDataFilteredByType = createSelector(
+  [getAccountsDataFilteredByCurrency, getFilterPanelFormValueForType], (accounts, byType) => {
+    return byType === DEFAULT_FILTER_BY_TYPE ? 
+      accounts : accounts.filter(el => el.Type === byType)
+  }
+);
+
 export const getAccountsDataFilteredByTags = createSelector(
-  [getAccountsDataFilteredByCurrency, getFilterPanelFormValuesForTags], (accounts, tags) => {
-    console.log('_getAccountsDataFilteredByTags_', tags);
+  [getAccountsDataFilteredByType, getFilterPanelFormValuesForTags], (accounts, tags) => {
     return !tags.size ? accounts : (
       accounts && accounts.filter(account => {
         if (!!account.Tags) {
@@ -50,4 +56,9 @@ export const getFilteredAccountsData = createSelector(getAccountsDataFilteredByT
 export const getAccountsDataCurrencies = createSelector(getAccountsData, accounts => {
   const currencies = accounts.map(el => el.Currency);
   return List(uniq(currencies));
+})
+
+export const getAccountsDataTypes = createSelector(getAccountsData, accounts => {
+  const types = accounts.map(el => el.Type);
+  return List(uniq(types));
 })

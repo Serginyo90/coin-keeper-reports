@@ -1,8 +1,8 @@
 import React from 'react';
-import { FormSection } from 'redux-form/immutable';
+import { FormSection, Field } from 'redux-form/immutable';
 
 import Select from 'components/Select';
-import { DEFAULT_FILTER_BY_CURRENCY } from 'helpers/constants/filter';
+import { DEFAULT_FILTER_BY_CURRENCY, DEFAULT_FILTER_BY_TYPE } from 'helpers/constants/filter';
 import FilterBlock from './FilterBlock';
 import styles from './FilterPanel.module.css';
 
@@ -10,7 +10,8 @@ const FilterPanel = ({
   setFilterByCurrency,
   byCurrency, 
   tags,
-  currencies
+  currencies,
+  types
 }) => (
   <div className={styles.wrapper}>
     <Select
@@ -25,6 +26,11 @@ const FilterPanel = ({
       }}
     />
     <form>
+      <Field
+        name="type"
+        component={Select}
+        options={[{ label: 'All types', value: DEFAULT_FILTER_BY_TYPE }].concat(types.toJS())}
+      />
       <FormSection name="tags">
         <FilterBlock 
           title="By tags"

@@ -1,15 +1,16 @@
 import { List } from 'immutable';
 import { formValueSelector } from 'redux-form/immutable';
-import { FILTER_PANEL_FORM } from 'helpers/constants/filter';
+import { FILTER_PANEL_FORM, DEFAULT_FILTER_BY_TYPE } from 'helpers/constants/filter';
+
+const selector = formValueSelector(FILTER_PANEL_FORM);
 
 export const getFilterPanelFormValuesForTags = state => {
-  const selector = formValueSelector(FILTER_PANEL_FORM);
-  console.log('__getFilterPanelFormValuesForTags__');
   const tags = selector(state, "tags");
   return tags ? tags.reduce((list, val, key) => {
-    console.log('_reduce_', {
-      list, val, key
-    });
     return val ? list.push(key) : list;
   }, List()) : List();
+}
+
+export const getFilterPanelFormValueForType = state => {
+  return selector(state, "type") || DEFAULT_FILTER_BY_TYPE;
 }
