@@ -1,6 +1,11 @@
 import { List } from 'immutable';
 import { formValueSelector } from 'redux-form/immutable';
-import { FILTER_PANEL_FORM, DEFAULT_FILTER_BY_TYPE, DEFAULT_FILTER_BY_CATEGORY } from 'helpers/constants/filter';
+import { 
+  FILTER_PANEL_FORM, 
+  DEFAULT_FILTER_BY_TYPE, 
+  DEFAULT_FILTER_BY_CATEGORY,
+  DEFAULT_FILTER_BY_WALLET,
+} from 'helpers/constants/filter';
 
 const selector = formValueSelector(FILTER_PANEL_FORM);
 
@@ -17,4 +22,8 @@ export const getFilterPanelFormValueForType = state => {
 
 export const getFilterPanelFormValueForCategory = state => {
   return selector(state, "category") || DEFAULT_FILTER_BY_CATEGORY;
+}
+
+export const getFilterPanelFormValueForWallet = state => {
+  return selector(state, "wallet") || DEFAULT_FILTER_BY_WALLET;
 }
