@@ -42,8 +42,8 @@ export const getAccountsDataFilteredByRange = createSelector(
   [getAccountsDataFilteredByCurrency, getFilterPanelFormValueForRange], (accounts, byRange) => {
     return byRange ? accounts && accounts.filter(account => {
       const { from, to } = byRange;
-      const date = Moment(account.Data);
-      return from < date && to > date;
+      const date = Moment(account.Data, "MM/DD/YYYY");
+      return from <= date && to >= date;
     }) : accounts;
   }
 );

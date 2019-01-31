@@ -65,12 +65,16 @@ const FilterPanel = ({
           component={DateTimePicker}
           label="From"
           defaultValue={datesMinAndMax.get('min')}
+          min={datesMinAndMax.get('min')}
+          max={datesMinAndMax.get('max')}
         />
         <Field
           name="to"
           component={DateTimePicker}
           label="To"
           defaultValue={datesMinAndMax.get('max')}
+          min={datesMinAndMax.get('min')}
+          max={datesMinAndMax.get('max')}
         />
       </FormSection>
     </form>

@@ -9,9 +9,11 @@ Moment.locale('en');
 momentLocalizer();
 
 const DateTimePickerComponent = ({
-  label,
-  input: { value, onChange },
-  defaultValue
+ label,
+ input: { value, onChange },
+ defaultValue,
+ min,
+ max
 }) => (
   <Fragment>
     {label && <label>{label}</label>}
@@ -20,6 +22,8 @@ const DateTimePickerComponent = ({
       time={false}
       onChange={onChange}
       format="DD/MM/YYYY"
+      min={min}
+      max={max}
     />
   </Fragment>
 )
