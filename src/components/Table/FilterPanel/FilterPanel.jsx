@@ -2,6 +2,7 @@ import React from 'react';
 import { FormSection, Field } from 'redux-form/immutable';
 
 import Select from 'components/Select';
+import DateTimePicker from 'components/DateTimePicker';
 import { 
   DEFAULT_FILTER_BY_CURRENCY, 
   DEFAULT_FILTER_BY_TYPE, 
@@ -18,7 +19,8 @@ const FilterPanel = ({
   currencies,
   types,
   categories,
-  wallets
+  wallets,
+  datesMinAndMax
 }) => (
   <div className={styles.wrapper}>
     <Select
@@ -55,6 +57,20 @@ const FilterPanel = ({
         <FilterBlock 
           title="By tags"
           filterItems={tags}
+        />
+      </FormSection>
+      <FormSection name="range">
+        <Field
+          name="from"
+          component={DateTimePicker}
+          label="From"
+          defaultValue={datesMinAndMax.get('min')}
+        />
+        <Field
+          name="to"
+          component={DateTimePicker}
+          label="To"
+          defaultValue={datesMinAndMax.get('max')}
         />
       </FormSection>
     </form>

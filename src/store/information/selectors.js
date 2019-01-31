@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import uniq from 'lodash/uniq';
+import Moment from 'moment';
 
 import { getFilterByCurrency } from 'store/filter/selectors';
 import { sortListByName } from 'helpers/storeHelper.js';
@@ -8,7 +9,8 @@ import {
   getFilterPanelFormValuesForTags, 
   getFilterPanelFormValueForType, 
   getFilterPanelFormValueForCategory,
-  getFilterPanelFormValueForWallet
+  getFilterPanelFormValueForWallet,
+  getFilterPanelFormValueForRange
 } from 'store/form/selectors';
 import { 
   DEFAULT_FILTER_BY_CURRENCY, 
@@ -36,8 +38,18 @@ export const getAccountsDataFilteredByCurrency = createSelector(
   }
 );
 
+export const getAccountsDataFilteredByRange = createSelector(
+  [getAccountsDataFilteredByCurrency, getFilterPanelFormValueForRange], (accounts, byRange) => {
+    return byRange ? accounts && accounts.filter(account => {
+      const { from, to } = byRange;
+      const date = Moment(account.Data);
+      return from < date && to > date;
+    }) : accounts;
+  }
+);
+
 export const getAccountsDataFilteredByType = createSelector(
-  [getAccountsDataFilteredByCurrency, getFilterPanelFormValueForType], (accounts, byType) => {
+  [getAccountsDataFilteredByRange, getFilterPanelFormValueForType], (accounts, byType) => {
     return byType === DEFAULT_FILTER_BY_TYPE ? 
       accounts : accounts.filter(el => el.Type === byType)
   }
@@ -76,6 +88,13 @@ export const getFilteredAccountsData = createSelector(getAccountsDataFilteredByT
 export const getAccountsDataCurrencies = createSelector(getAccountsData, accounts => {
   const currencies = accounts.map(el => el.Currency);
   return List(uniq(currencies));
+})
+
+export const getAccountsDataDatesMinAndMax = createSelector(getAccountsData, accounts => {
+  return Map({
+    min: new Date(accounts[0]['Data']),
+    max: new Date(accounts[accounts.length - 1]['Data']),
+  });
 })
 
 export const getAccountsDataTypes = createSelector(getAccountsData, accounts => {

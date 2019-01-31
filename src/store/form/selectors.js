@@ -27,3 +27,7 @@ export const getFilterPanelFormValueForCategory = state => {
 export const getFilterPanelFormValueForWallet = state => {
   return selector(state, "wallet") || DEFAULT_FILTER_BY_WALLET;
 }
+
+export const getFilterPanelFormValueForRange = state => {
+  return selector(state, "range");
+}

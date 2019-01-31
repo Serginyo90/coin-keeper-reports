@@ -9,7 +9,7 @@ import logo from './logo.svg';
 import './App.css';
 
 const mapStateToProps = state => ({
-  accounts: getFilteredAccountsData(state),
+  accounts: getFilteredAccountsData(state)
 })
 
 const mapDispatchToProps = {

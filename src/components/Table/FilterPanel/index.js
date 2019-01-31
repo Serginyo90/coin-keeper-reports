@@ -9,7 +9,8 @@ import {
   getAccountsDataCurrencies,
   getAccountsDataTypes,
   getCategoriesDataNamesList,
-  getWalletsDataNamesList
+  getWalletsDataNamesList,
+  getAccountsDataDatesMinAndMax
  } from 'store/information/selectors';
 import { 
   FILTER_PANEL_FORM, 
@@ -26,21 +27,33 @@ const mapStateToProps = state => ({
   currencies: getAccountsDataCurrencies(state),
   types: getAccountsDataTypes(state),
   categories: getCategoriesDataNamesList(state),
-  wallets: getWalletsDataNamesList(state)
+  wallets: getWalletsDataNamesList(state),
+  datesMinAndMax: getAccountsDataDatesMinAndMax(state)
 })
 
 const mapDispatchToProps = {
   setFilterByCurrency
 }
 
-const formProps = {
-  form: FILTER_PANEL_FORM,
+const mergeProps = ({ datesMinAndMax, ...stateProps }, dispatchProps, ownProps) => ({
+  ...stateProps,
+  ...dispatchProps,
+  ...ownProps,
   initialValues: Map({ 
     type: DEFAULT_FILTER_BY_TYPE,
     wallet: DEFAULT_FILTER_BY_WALLET,
     category: DEFAULT_FILTER_BY_CATEGORY,
-  })
+    range: {
+      from: datesMinAndMax.get('min'),
+      to: datesMinAndMax.get('max')
+    }
+  }),
+  datesMinAndMax
+})
+
+const formProps = {
+  form: FILTER_PANEL_FORM,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm(formProps)(FilterPanel));
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(reduxForm(formProps)(FilterPanel));
 

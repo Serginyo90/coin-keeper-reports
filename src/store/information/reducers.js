@@ -2,11 +2,11 @@ import { Map, fromJS } from 'immutable'
 import * as types from './actionTypes'
 
 export const initState = fromJS({
-  accounts: [],
-  sources: [],
-  wallets: [],
-  categories: [],
-  tags: [],
+  accounts: {},
+  sources: {},
+  wallets: {},
+  categories: {},
+  tags: {},
   currencies: [],
 })
 
