@@ -40,23 +40,27 @@ const FilterPanel = ({
         component={Select}
         label="By type"
         options={[{ label: 'All types', value: DEFAULT_FILTER_BY_TYPE }].concat(types.toJS())}
+        className={styles.item}
       />
       <Field
         name="category"
         component={Select}
         label="By category"
         options={[{ label: 'All categories', value: DEFAULT_FILTER_BY_CATEGORY }].concat(categories.toJS())}
+        className={styles.item}
       />
       <Field
         name="wallet"
         component={Select}
         label="By wallet"
         options={[{ label: 'All wallets', value: DEFAULT_FILTER_BY_WALLET }].concat(wallets.toJS())}
+        className={styles.item}
       />
       <FormSection name="tags">
         <FilterBlock 
           title="By tags"
           filterItems={tags}
+          className={styles.item}
         />
       </FormSection>
       <FormSection name="range">
@@ -67,6 +71,7 @@ const FilterPanel = ({
           defaultValue={datesMinAndMax.get('min')}
           min={datesMinAndMax.get('min')}
           max={datesMinAndMax.get('max')}
+          className={styles.item}
         />
         <Field
           name="to"
@@ -75,6 +80,7 @@ const FilterPanel = ({
           defaultValue={datesMinAndMax.get('max')}
           min={datesMinAndMax.get('min')}
           max={datesMinAndMax.get('max')}
+          className={styles.item}
         />
       </FormSection>
     </form>

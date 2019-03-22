@@ -7,4 +7,8 @@
 .body {
   max-height: 250px;
   overflow: auto;
+  width: 100%;
+}
+.title {
+  margin-bottom: 5px;
 }

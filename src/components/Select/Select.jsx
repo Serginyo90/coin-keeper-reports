@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 import uniqueId from 'lodash/uniqueId'
+
+import styles from './Select.module.css'
 
 const Select = ({
   id,
@@ -12,13 +15,14 @@ const Select = ({
   getLabel,
   getValue,
   getKey,
+  className,
 }) => {
   const selectId = id || uniqueId()
 
   return (
-    <div>
+    <div className={cn(styles.wrapper, { [className]: className})}>
       {label && (
-        <label htmlFor={selectId}>
+        <label className={styles.label} htmlFor={selectId}>
           {label}
         </label>
       )}
@@ -27,6 +31,7 @@ const Select = ({
         id={selectId}
         disabled={disabled}
         size={size}
+        className={styles.select}
       >
         {options.map(option => (
           <option key={getKey(option)} value={getValue(option)}>

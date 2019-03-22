@@ -4,4 +4,6 @@
 }
 .table {
   min-width: 800px;
+  width: 100%;
+  padding: 10px;
 }

@@ -7,6 +7,7 @@ import { getFilteredAccountsData } from './store/information/selectors'
 import Table from './components/Table'
 import logo from './logo.svg';
 import './App.css';
+import './variable.css';
 
 const mapStateToProps = state => ({
   accounts: getFilteredAccountsData(state)

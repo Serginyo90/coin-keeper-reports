@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import momentLocalizer from 'react-widgets-moment';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import 'react-widgets/dist/css/react-widgets.css';
+import styles from './DateTimePicker.module.css'
 
 Moment.locale('en');
 momentLocalizer();
@@ -16,7 +17,7 @@ const DateTimePickerComponent = ({
  max
 }) => (
   <Fragment>
-    {label && <label>{label}</label>}
+    {label && <label className={styles.label}>{label}</label>}
     <DateTimePicker
       value={!value ? defaultValue : new Date(value)}
       time={false}

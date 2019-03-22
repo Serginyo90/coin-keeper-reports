@@ -1,3 +1,7 @@
 .wrapper {
   min-width: 200px;
+  padding: 10px
+}
+.item {
+  padding: 10px 0;
 }

@@ -1,0 +1,8 @@
+.rt-td {
+    font-size: 14px;
+    color: var(--primary-text-color);
+}
+.ReactTable .rt-thead .rt-th {
+    padding: 10px 5px;
+    text-align: left;
+}
