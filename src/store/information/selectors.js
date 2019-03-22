@@ -19,7 +19,7 @@ import {
   DEFAULT_FILTER_BY_WALLET
 } from 'helpers/constants/filter';
 
-const getInformation = state => state.get('information');
+const getInformation = state => state.information;
 export const getAccountsData = createSelector(getInformation, inf => inf.getIn(['accounts', 'data']));
 export const getSources = createSelector(getInformation, inf => inf.get('sources'));
 const getWallets = createSelector(getInformation, inf => inf.get('wallets'));
@@ -88,16 +88,16 @@ export const getFilteredAccountsData = createSelector(getAccountsDataFilteredByT
 export const getAccountsDataCurrencies = createSelector(getAccountsData, accounts => {
   const currencies = accounts.map(el => el.Currency);
   return List(uniq(currencies));
-})
+});
 
 export const getAccountsDataDatesMinAndMax = createSelector(getAccountsData, accounts => {
   return Map({
     min: new Date(accounts[0]['Data']),
     max: new Date(accounts[accounts.length - 1]['Data']),
   });
-})
+});
 
 export const getAccountsDataTypes = createSelector(getAccountsData, accounts => {
   const types = accounts.map(el => el.Type);
   return List(uniq(types));
-})
+});

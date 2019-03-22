@@ -1,14 +1,14 @@
-import { Map, fromJS } from 'immutable'
-import * as types from './actionTypes'
+import { Map, fromJS } from 'immutable';
+import * as types from './actionTypes';
 
-export const initState = fromJS({
+const initState = fromJS({
   accounts: {},
   sources: {},
   wallets: {},
   categories: {},
   tags: {},
   currencies: [],
-})
+});
 
 export default function(state = initState, action) {
   switch (action.type) {
@@ -19,14 +19,14 @@ export default function(state = initState, action) {
       wallets,
       categories,
       tags,
-    } = action.payload
+    } = action.payload;
       return state
       .set('accounts', Map(accounts))
       .set('sources', Map(sources))
       .set('wallets', Map(wallets))
       .set('categories', Map(categories))
-      .set('tags', Map(tags))
+      .set('tags', Map(tags));
     default:
-      return state
+      return state;
   }
 }

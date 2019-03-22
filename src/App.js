@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Papa from 'papaparse';
 
-import { setData } from './store/information/actions'
-import { getFilteredAccountsData } from './store/information/selectors'
-import Table from './components/Table'
+import { setData } from './store/information/actions';
+import { getFilteredAccountsData } from './store/information/selectors';
+import Table from './components/Table';
 import logo from './logo.svg';
 import './App.css';
 import './variable.css';
 
 const mapStateToProps = state => ({
   accounts: getFilteredAccountsData(state)
-})
+});
 
 const mapDispatchToProps = {
   setData
-}
+};
 
 class App extends Component {
 
@@ -40,10 +40,10 @@ class App extends Component {
       })
     };
     reader.readAsText(file);
-  }
+  };
 
   render() {
-    const { accounts } = this.props
+    const { accounts } = this.props;
     return (
       <div className="App">
         <header className="App-header">
