@@ -5,5 +5,11 @@
         "moduleDirectory": ["node_modules", "src/"]
       }
     }
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   }
 }

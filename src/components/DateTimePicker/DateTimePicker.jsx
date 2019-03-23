@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Moment from 'moment';
 import PropTypes from 'prop-types';
 import momentLocalizer from 'react-widgets-moment';
 import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 import 'react-widgets/dist/css/react-widgets.css';
-import styles from './DateTimePicker.module.css'
+import styles from './DateTimePicker.module.css';
 
 Moment.locale('en');
 momentLocalizer();
@@ -16,7 +16,7 @@ const DateTimePickerComponent = ({
  min,
  max
 }) => (
-  <Fragment>
+  <div className={styles.wrapper}>
     {label && <label className={styles.label}>{label}</label>}
     <DateTimePicker
       value={!value ? defaultValue : new Date(value)}
@@ -26,8 +26,8 @@ const DateTimePickerComponent = ({
       min={min}
       max={max}
     />
-  </Fragment>
-)
+  </div>
+);
 
 DateTimePickerComponent.propTypes = {
   input: PropTypes.shape({
@@ -35,10 +35,10 @@ DateTimePickerComponent.propTypes = {
     onChange: PropTypes.func.isRequired,
   }),
   label: PropTypes.string,
-}
+};
 
 DateTimePickerComponent.defaultValue = {
   defaultValue: null,
-}
+};
 
 export default DateTimePickerComponent;

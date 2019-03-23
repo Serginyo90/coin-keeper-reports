@@ -1,3 +1,7 @@
 .label {
-    margin-bottom: 5px;
+    margin: 5px 0;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
 }

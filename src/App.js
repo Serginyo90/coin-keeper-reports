@@ -5,7 +5,6 @@ import Papa from 'papaparse';
 import { setData } from './store/information/actions';
 import { getFilteredAccountsData } from './store/information/selectors';
 import Table from './components/Table';
-import logo from './logo.svg';
 import './App.css';
 import './variable.css';
 
@@ -47,10 +46,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <input type="file" onChange={this.handleChangeFileInput} />
         </header>
-        <div className="main">
+        <div>
           { accounts && <Table accounts={accounts}/> }
         </div>
       </div>

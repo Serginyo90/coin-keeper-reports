@@ -20,15 +20,25 @@ import {
 } from 'helpers/constants/filter';
 
 const getInformation = state => state.information;
+
 export const getAccountsData = createSelector(getInformation, inf => inf.getIn(['accounts', 'data']));
+
 export const getSources = createSelector(getInformation, inf => inf.get('sources'));
+
 const getWallets = createSelector(getInformation, inf => inf.get('wallets'));
+
 const getWalletsData = createSelector(getWallets, wallets => wallets.get('data'));
-export const getWalletsDataNamesList = createSelector(getWalletsData, wallets => sortListByName(List(wallets)).map(wallet => wallet.Name));
+
+export const getWalletsDataNamesList = createSelector(getWalletsData, wallets => sortListByName(List(wallets)).map(wallet => `${wallet.Name} - ${wallet.Currency}`));
+
 const getCategories = createSelector(getInformation, wallets => wallets.get('categories'));
+
 const getCategoriesData = createSelector(getCategories, categories => categories.get('data'));
+
 export const getCategoriesDataNamesList = createSelector(getCategoriesData, categories => sortListByName(List(categories)).map(category => category.Name));
+
 const getTags = createSelector(getInformation, inf => inf.get('tags'));
+
 export const getTagsData = createSelector(getTags, tags => sortListByName(tags.get('data')));
 
 export const getAccountsDataFilteredByCurrency = createSelector(
