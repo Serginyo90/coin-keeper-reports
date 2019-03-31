@@ -4,7 +4,7 @@ import uniq from 'lodash/uniq';
 import Moment from 'moment';
 
 import { getFilterByCurrency } from 'store/filter/selectors';
-import { sortListByName } from 'helpers/storeHelper.js';
+import { sortListByName, getCountDaysBetweenDate } from 'helpers/storeHelper.js';
 import { 
   getFilterPanelFormValuesForTags, 
   getFilterPanelFormValueForType, 
@@ -95,6 +95,7 @@ export const getAccountsDataFilteredByTags = createSelector(
 );
 
 export const getFilteredAccountsData = createSelector(getAccountsDataFilteredByTags, accounts => accounts);
+
 export const getAccountsDataCurrencies = createSelector(getAccountsData, accounts => {
   const currencies = accounts.map(el => el.Currency);
   return List(uniq(currencies));
@@ -111,3 +112,19 @@ export const getAccountsDataTypes = createSelector(getAccountsData, accounts => 
   const types = accounts.map(el => el.Type);
   return List(uniq(types));
 });
+
+export const getFilteredAccountsDataForChart = createSelector([getFilteredAccountsData, getFilterPanelFormValueForRange],
+  (accounts, byRange) => {
+  console.log('__accounts__', { accounts });
+  const { from, to } = byRange;
+  const countDays = getCountDaysBetweenDate(from, to)
+    if (countDays <= 31) {
+
+    } else if (countDays <= 368) {
+
+    } else {
+
+    }
+  console.log('__arr__', { countDays });
+  return countDays;
+})

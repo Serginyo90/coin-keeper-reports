@@ -57,7 +57,7 @@ const FilterPanel = ({
         className={styles.item}
       />
       <FormSection name="tags">
-        <FilterBlock 
+        <FilterBlock
           title="By tags"
           filterItems={tags}
           className={styles.item}
