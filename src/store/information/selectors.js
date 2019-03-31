@@ -5,7 +5,8 @@ import Moment from 'moment';
 
 import { getFilterByCurrency } from 'store/filter/selectors';
 import { sortListByName, getCountDaysBetweenDate } from 'helpers/storeHelper.js';
-import { 
+import { prepareDataForLineGraph } from 'helpers/graphHelper.js';
+import {
   getFilterPanelFormValuesForTags, 
   getFilterPanelFormValueForType, 
   getFilterPanelFormValueForCategory,
@@ -115,16 +116,13 @@ export const getAccountsDataTypes = createSelector(getAccountsData, accounts => 
 
 export const getFilteredAccountsDataForChart = createSelector([getFilteredAccountsData, getFilterPanelFormValueForRange],
   (accounts, byRange) => {
-  console.log('__accounts__', { accounts });
   const { from, to } = byRange;
-  const countDays = getCountDaysBetweenDate(from, to)
-    if (countDays <= 31) {
-
-    } else if (countDays <= 368) {
-
-    } else {
-
-    }
-  console.log('__arr__', { countDays });
-  return countDays;
-})
+  const countDays = getCountDaysBetweenDate(from, to);
+  let prepearedData = null;
+  if (countDays <= 31) {
+    prepearedData = prepareDataForLineGraph(accounts, 'DD');
+  } else if (countDays <= 368) {
+    prepearedData = prepareDataForLineGraph(accounts, 'MMMM');
+  }
+  return prepearedData;
+});
