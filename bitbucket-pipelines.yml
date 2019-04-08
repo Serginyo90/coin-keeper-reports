@@ -8,12 +8,12 @@ image: node:10.15.1
 pipelines:
   branches:
     master:
-      - step:
+     - step:
         name: Build
         script:
           - yarn install
           - yarn run build
-      - step:
+     - step:
         name: Deploy
         deployment: production
         script:
