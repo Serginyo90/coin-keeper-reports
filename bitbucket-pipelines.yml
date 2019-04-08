@@ -9,16 +9,16 @@ pipelines:
   branches:
     master:
       - step:
-        name: Build
-        script:
-          - yarn install
-          - yarn run build
-        artifacts:
-          - build/**
+          name: Build
+          script:
+            - yarn install
+            - yarn run build
+          artifacts:
+            - build/**
       - step:
-        name: Deploy
-        deployment: production
-        script:
+          name: Deploy
+          deployment: production
+          script:
           - pipe: atlassian/aws-s3-deploy:0.2.1
             variables:
               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
