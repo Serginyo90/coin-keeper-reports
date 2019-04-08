@@ -6,17 +6,16 @@
 image: node:10.15.1
 
 pipelines:
-  default:
-    - step:
+  branches:
+    master:
+      - step:
         name: Build
         script:
           - yarn install
           - yarn run build
-          - git status
-          - ls
         artifacts:
           - build/**
-    - step:
+      - step:
         name: Deploy
         deployment: production
         script:
