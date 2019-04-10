@@ -14,7 +14,7 @@ import {
 class Graph extends React.Component {
   render() {
     const { width, height, data } = this.props;
-
+    console.log('__data__', { data });
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         <LineChart width={width} height={height} data={data}
@@ -32,7 +32,7 @@ class Graph extends React.Component {
 }
 
 Graph.defaultProps = {
-  width: 800,
+  width: 1200,
   height: 500,
 };
 
