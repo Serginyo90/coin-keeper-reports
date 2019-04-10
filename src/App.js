@@ -45,7 +45,8 @@ class App extends Component {
     const { accounts } = this.props;
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="header">
+          <img className='logo' src="logo.png" alt="Coin Keeper Analytics"/>
           <input type="file" onChange={this.handleChangeFileInput} />
         </header>
         <div>

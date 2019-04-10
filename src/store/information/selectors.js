@@ -119,10 +119,11 @@ export const getFilteredAccountsDataForChart = createSelector([getFilteredAccoun
   const { from, to } = byRange;
   const countDays = getCountDaysBetweenDate(from, to);
   let prepearedData = null;
+  console.log('__countDays__', { countDays });
   if (countDays <= 31) {
     prepearedData = prepareDataForLineGraph(accounts, 'DD');
-  } else if (countDays <= 368) {
-    prepearedData = prepareDataForLineGraph(accounts, 'MMMM');
+  } else {
+    prepearedData = prepareDataForLineGraph(accounts, 'MMM YY');
   }
   return prepearedData;
 });
