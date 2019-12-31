@@ -17,6 +17,18 @@ const columns = [
   {
   Header: 'Amount',
   accessor: 'Amount converted',
+  sortable: true,
+  sortMethod: (a, b) => {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    if (a > b) {
+      return 1;
+    }
+    if (a < b) {
+      return -1
+    }
+    return 0;
+  }
 },
 //   {
 //   Header: 'Currency',
