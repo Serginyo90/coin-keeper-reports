@@ -6,7 +6,7 @@
     "classnames": "^2.2.6",
     "immutable": "^4.0.0-rc.12",
     "moment": "^2.29.4",
-    "papaparse": "^4.6.2",
+    "papaparse": "^5.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
